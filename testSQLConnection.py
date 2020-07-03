@@ -4,6 +4,8 @@ from DBConnections.connection_spected import ConnectionSpected
 # server = 'localhost\sqlexpress' # for a named instance
 # server = 'myserver,port' # to specify an alternate port
 
+PATH_FILE = '\'' + 'C:\DBBackUP' + '\\' + '\''
+
 obj = ConnectionSpected()
 
 print("Tipo de Host 1-SQL 2-Oracle 3-Sybase 4-Postgress 5-MySQL")
@@ -27,9 +29,11 @@ password = obj.password
 cnxn = pyodbc.connect('DRIVER='+obj.DRIVER+';SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+ password)
 cursor = cnxn.cursor()
 
+QUERY_BACKUP = 'BACKUP DATABASE ' + '[' + obj.database + ']' + ' TO DISK = ' + PATH_FILE + ';'
+print(QUERY_BACKUP)
 
 #Sample select query
-cursor.execute("SELECT @@version;") 
+cursor.execute(QUERY_BACKUP) 
 row = cursor.fetchone() 
 while row: 
     print(row[0])
