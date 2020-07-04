@@ -1,35 +1,48 @@
-"""A Factory Pattern Example
-The Factory Pattern is a creational pattern that defines an Interface for creating an object
-and defers instantiation until runtime.
-Used when you don't know how many or what type of objects will be needed until during runtime
-"""
-
 from abc import ABCMeta, abstractstaticmethod
+import connection_config as config
 
-
-class IDBConnection(metaclass=ABCMeta):  # pylint: disable=too-few-public-methods
-    """The Chair Interface"""
+class IDBConnection(metaclass=ABCMeta):  
 
     @abstractstaticmethod
-    def dimensions():
-        """A static inteface method"""
+    def build_connection(self, connection_expected):
+        """Build data-source connection"""
+
+    @abstractstaticmethod
+    def build_query_backup(self, query):
+        """ Build query to execute """
 
 
+class SQLServerConnection(IDBConnection):  
 
-class SQLServerConnection(IDBConnection):  # pylint: disable=too-few-public-methods
-    """The Medium Chair Concrete Class which implements the IChair interface"""
+    def __init__(self, connection_expected):
+        self._host = connection_expected.host
+        self._port = connection_expected.port
+        self._database = connection_expected.database
+        self._username = connection_expected._username
+        self._password = connection_expected._password
+
+    def build_connection(self, connection_expected):
+        return {'DRIVER=' + config.driver["SQL"] +
+                ';SERVER=' + self._host + ',' + self._port + 
+                ';DATABASE=' + self._database + 
+                ';UID='+ self._username + 
+                ';PWD=' + self._password}
+
+    def build_query_backup(self, dbname):
+        return {'BACKUP DATABASE ' + '[' + dbname + ']' + ' TO DISK = ' + config.path_file + ';'}
+
+
+""" class PostgreSQLConnection(IDBConnection):  
 
     def __init__(self):
-        self._height = 60
-        self._width = 60
-        self._depth = 60
+        self._height = 40
+        self._width = 40
+        self._depth = 40
 
-    def dimensions(self):
+    def create_connection(self, connection_expected):
         return {"width": self._width, "depth": self._depth, "height": self._height}
 
-
-class PostgreSQLConnection(IDBConnection):  # pylint: disable=too-few-public-methods
-    """The Small Chair Concrete Class which implements the IChair interface"""
+class SybaseConnection(IDBConnection):  
 
     def __init__(self):
         self._height = 40
@@ -37,39 +50,29 @@ class PostgreSQLConnection(IDBConnection):  # pylint: disable=too-few-public-met
         self._depth = 40
 
     def dimensions(self):
-        return {"width": self._width, "depth": self._depth, "height": self._height}
-
-class SybaseConnection(IDBConnection):  # pylint: disable=too-few-public-methods
-    """The Small Chair Concrete Class which implements the IChair interface"""
-
-    def __init__(self):
-        self._height = 40
-        self._width = 40
-        self._depth = 40
-
-    def dimensions(self):
-        return {"width": self._width, "depth": self._depth, "height": self._height}
+        return {"width": self._width, "depth": self._depth, "height": self._height} """
 
 
-class DBConnection:  # pylint: disable=too-few-public-methods
-    """Tha Factory Class"""
+class DBConnectionFactory: 
 
-    @staticmethod
-    def get_connection(db_type):
-        """A static method to get a table"""
+    def __init__(self, connection_expected):
+        self._connection_expected = connection_expected
+
+    def create_connection(self, connection_expected):
         try:
-            if chair == "BigChair":
-                return BigChair()
-            if chair == "MediumChair":
-                return MediumChair()
-            if chair == "SmallChair":
-                return SmallChair()
+            if self._connection_expected._type_host == "SQL":
+                return SQLServerConnection(self._connection_expected)
+            if self._connection_expected.type_host == "ASE":
+                return SQLServerConnection(self._connection_expected)
+            if self._connection_expected.type_host == "MYSQL":
+                return SQLServerConnection(self._connection_expected)
             raise AssertionError("Chair Not Found")
         except AssertionError as _e:
             print(_e)
         return None
 
 
-if __name__ == "__main__":
+"""if __name__ == "__main__":
     CHAIR_FACTORY = ChairFactory().get_connection("SmallChair")
     print(CHAIR_FACTORY.dimensions())
+"""

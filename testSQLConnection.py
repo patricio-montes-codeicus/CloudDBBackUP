@@ -1,12 +1,12 @@
 import pyodbc 
-from DBConnections.connection_spected import ConnectionSpected
+from DBConnections.connection_expected import ConnectionExpected
 # Some other example server values are
 # server = 'localhost\sqlexpress' # for a named instance
 # server = 'myserver,port' # to specify an alternate port
 
-PATH_FILE = '\'' + 'C:\DBBackUP' + '\\' + '\''
+PATH_FILE = '\'' + 'C:\\DBBackUP' + '\\' + '\''
 
-obj = ConnectionSpected()
+obj = ConnectionExpected()
 
 print("Tipo de Host 1-SQL 2-Oracle 3-Sybase 4-Postgress 5-MySQL")
 obj.typehost = input()

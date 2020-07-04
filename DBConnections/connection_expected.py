@@ -1,7 +1,14 @@
-class ConnectionSpected:
+class ConnectionExpected:
 
-	DRIVER = '{ODBC Driver 17 for SQL Server}'
-	
+	"""	def __init__(self, typehost, host, port, username, password, database):
+		self.typehost = typehost
+		self.host = host
+		self.port = port
+		self.username = username
+		self.password = password
+		self.database = database
+	"""
+
 	@property
 	def typehost(self):
 		return self._typehost
