@@ -1,14 +1,5 @@
 class ExpectedConnection:
 
-	"""	def __init__(self, typehost, host, port, username, password, database):
-		self.typehost = typehost
-		self.host = host
-		self.port = port
-		self.username = username
-		self.password = password
-		self.database = database
-	"""
-
 	@property
 	def typehost(self):
 		return self._typehost
@@ -84,6 +75,7 @@ class ExpectedConnection:
 
 	def get_db_type(self, id_type):
 		if id_type == 1:
+			print("Type SQL")
 			return "SQL"
 		if id_type == 2:
 			return "ASE"
