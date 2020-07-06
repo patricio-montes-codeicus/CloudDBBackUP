@@ -21,7 +21,7 @@ if not creds or creds.invalid:
 DRIVE = build('drive', 'v3', http=creds.authorize(Http()))
 
 FILES = (
-    ('TestFile.txt'),
+    ('PatentesDB.bak'),
 )
 
 for file_title in FILES :

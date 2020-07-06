@@ -1,9 +1,10 @@
 import pyodbc 
 from DBConnections.expected_connection import ExpectedConnection
 from DBConnections.connection_factory import DBConnectionFactory
+from ClientsImpl.google_drive_impl import GoogleDriveImpl
 
 expected_connection = ExpectedConnection()
-
+#TODO: Evaluar mejor forma de recibir al cronear.  
 print("Tipo de Host 1-SQL 2-Oracle 3-Sybase 4-Postgress 5-MySQL")
 expected_connection.typehost = input()
 print("Host:")
@@ -25,3 +26,6 @@ cursor = conn.cursor()
 
 print(db_connection.build_query_backup(expected_connection.database))
 cursor.execute(db_connection.build_query_backup(expected_connection.database))
+
+google_drive_manager = GoogleDriveImpl()
+google_drive_manager.upload_simple_file("path_file")
