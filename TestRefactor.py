@@ -1,33 +1,31 @@
 import pyodbc 
-from DBConnections.connection_expected import ConnectionExpected
+from DBConnections.expected_connection import ExpectedConnection
 from DBConnections.connection_factory import DBConnectionFactory
 
-obj = ConnectionExpected()
+expected_connection = ExpectedConnection()
 
 
 print("Tipo de Host 1-SQL 2-Oracle 3-Sybase 4-Postgress 5-MySQL")
-obj.typehost = input()
+expected_connection.typehost = input()
 print("Host:")
-obj.host = input()
+expected_connection.host = input()
 print("Port:")
-obj.port = input()
+expected_connection.port = input()
 print("Username:")
-obj.username = input()
+expected_connection.username = input()
 print("password:")
-obj.password = input()
+expected_connection.password = input()
 print("DataBase:")
-obj.database = input()
+expected_connection.database = input()
 
-objtwo = DBConnectionFactory(obj)
-objs = objtwo.create_connection(obj)
+factory_connection = DBConnectionFactory(expected_connection)
+db_connection = factory_connection.create_connection("SQL")
 
-
-cnxn = pyodbc.connect(objs.build_connection(obj))
-cursor = cnxn.cursor()
-
+conn = pyodbc.connect(db_connection.build_connection(expected_connection.get_db_type(int(expected_connection.typehost))))
+cursor = conn.cursor()
 
 #Sample select query
-cursor.execute(objs.build_query_backup("obj.database")) 
+cursor.execute(db_connection.build_query_backup(expected_connection.database)) 
 row = cursor.fetchone() 
 while row: 
     print(row[0])

@@ -1,4 +1,4 @@
-class ConnectionExpected:
+class ExpectedConnection:
 
 	"""	def __init__(self, typehost, host, port, username, password, database):
 		self.typehost = typehost
@@ -81,6 +81,12 @@ class ConnectionExpected:
 	def database(self):
 		del self._database
 
+
+	def get_db_type(self, id_type):
+		if id_type == 1:
+			return "SQL"
+		if id_type == 2:
+			return "ASE"
 
 
 

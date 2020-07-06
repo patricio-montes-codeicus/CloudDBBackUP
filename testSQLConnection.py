@@ -1,12 +1,12 @@
 import pyodbc 
-from DBConnections.connection_expected import ConnectionExpected
+from DBConnections.expected_connection import ExpectedConnection
 # Some other example server values are
 # server = 'localhost\sqlexpress' # for a named instance
 # server = 'myserver,port' # to specify an alternate port
 
 PATH_FILE = '\'' + 'C:\\DBBackUP' + '\\' + '\''
 
-obj = ConnectionExpected()
+obj = ExpectedConnection()
 
 print("Tipo de Host 1-SQL 2-Oracle 3-Sybase 4-Postgress 5-MySQL")
 obj.typehost = input()
@@ -26,7 +26,7 @@ database = obj.database
 username = obj.username 
 password = obj.password 
 
-cnxn = pyodbc.connect('DRIVER='+obj.DRIVER+';SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+ password)
+cnxn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+ password)
 cursor = cnxn.cursor()
 
 QUERY_BACKUP = 'BACKUP DATABASE ' + '[' + obj.database + ']' + ' TO DISK = ' + PATH_FILE + ';'
