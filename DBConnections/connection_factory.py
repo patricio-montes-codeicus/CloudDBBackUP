@@ -1,11 +1,10 @@
 from abc import ABCMeta, abstractstaticmethod
-from configparser import ConfigParser
+from Commons.singleton import singleton
+from ServicesImpl.file_manager_impl import FileManagerImpl
 import datetime
+from Commons.app_config import APPConfig
 
-
-config = ConfigParser()
-config.read('./DBConnections/connection_config.ini')
-print(config.sections())
+app_config = APPConfig()
 
 class IDBConnection(metaclass=ABCMeta):  
 
@@ -17,30 +16,28 @@ class IDBConnection(metaclass=ABCMeta):
     def build_query_backup(self, query):
         """ Build query backup to execute """
 
-
+@singleton
 class SQLServerConnection(IDBConnection):  
 
     def build_connection(self, con):
             if con.port != '':
                 con.port = ',' + con.port
-            return 'DRIVER=' + config.get('drivers', 'SQL') + ';SERVER=' + con.host + con.port + ';DATABASE=' + con.database + ';UID='+ con.username + ';PWD=' + con._password
+            return 'DRIVER=' + app_config.driver_sql + ';SERVER=' + con.host + con.port + ';DATABASE=' + con.database + ';UID='+ con.username + ';PWD=' + con._password
                
                
-    def build_query_backup(self, dbname):
-        path_file_backup = '\'' + config.get('files', 'backup_file_path') + dbname + '_' + str(datetime.datetime.now()).replace(":", ".") + '.bak' + '\''
-        return 'BACKUP DATABASE ' + '[' + dbname + ']' + ' TO DISK = ' + path_file_backup + ';'
+    def build_query_backup(self, db_name, absolute_backup_path):
+            return 'BACKUP DATABASE ' + '[' + db_name + ']' + ' TO DISK = ' + '\'' + absolute_backup_path + '\'' +  ';'
 
 
 class DBConnectionFactory: 
 
     def create(self, type_host):
         try:
-            print(type_host)
-            if type_host == "SQL":
+            if type_host == 'SQL':
                 return SQLServerConnection()
-            if type_host == "ASE":
+            if type_host == 'ASE':
                 return SQLServerConnection()
-            if type_host == "MYSQL":
+            if type_host == 'MYSQL':
                 return SQLServerConnection()
             raise AssertionError("Connection Not Found")
         except AssertionError as _e:

@@ -7,5 +7,5 @@ class IGoogleDrive(metaclass=ABCMeta):
         """ quickly transfer a small media file (5 MB or less) without supplying metadata """
 
     @abstractstaticmethod
-    def upload_resumable_file(self):
+    def upload_resumable_file(self, file_path):
         """ upload operation after a communication failure interrupts the flow of data (5 MB or greater) """

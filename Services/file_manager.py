@@ -1,12 +1,12 @@
-import os.path
 from abc import ABCMeta, abstractstaticmethod
+
 
 class IFileManager(metaclass=ABCMeta):
 
     @abstractstaticmethod
-    def get_last_backup_by_dbname(self, db_name):
-        """Last DBBackUp by Name"""
+    def get_absolute_path_backup(self, db_name, db_type):
+        """ Construye y retorna la ruta del backup y su extensión correspondiente. """
 
     @abstractstaticmethod
-    def file_upload_drive(self, path_file):
-        """Send upload drive"""
+    def get_backup_size(self, backup_path):
+        """ Obtiene el tamaño en KB del archivo backup generado. """
