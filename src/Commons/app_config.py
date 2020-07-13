@@ -1,4 +1,4 @@
-from Commons.singleton import singleton
+from src.Commons.singleton import singleton
 from configparser import ConfigParser
 
 config = ConfigParser()

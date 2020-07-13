@@ -1,4 +1,4 @@
-from Clients.google_api_security import IGoogleApiSecurity
+from src.Clients.google_api_security import IGoogleApiSecurity
 from googleapiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file, client, tools

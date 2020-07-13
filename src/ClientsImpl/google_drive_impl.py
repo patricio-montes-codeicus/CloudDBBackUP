@@ -2,10 +2,11 @@ from googleapiclient.discovery import build
 from apiclient.http import MediaFileUpload
 from httplib2 import Http
 from oauth2client import file, client, tools
-from Clients.google_drive import IGoogleDrive
-from ClientsImpl.google_api_security_impl import GoogleApiSecurityImpl
 import os
-from Commons.app_config import APPConfig
+from src.Clients.google_drive import IGoogleDrive
+from src.ClientsImpl.google_api_security_impl import GoogleApiSecurityImpl
+from src.Commons.app_config import APPConfig
+
 
 app_config = APPConfig()
 

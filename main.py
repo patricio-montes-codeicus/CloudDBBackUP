@@ -1,9 +1,9 @@
 import pyodbc 
 import logging
-from DBConnections.expected_connection import ExpectedConnection
-from DBConnections.connection_factory import DBConnectionFactory
-from ClientsImpl.google_drive_impl import GoogleDriveImpl
-from ServicesImpl.file_manager_impl import FileManagerImpl
+from src.DBConnections.expected_connection import ExpectedConnection
+from src.DBConnections.connection_factory import DBConnectionFactory
+from src.ClientsImpl.google_drive_impl import GoogleDriveImpl
+from src.ServicesImpl.file_manager_impl import FileManagerImpl
 
 expected_connection = ExpectedConnection()
 #TODO: Evaluar mejor forma de recibir al cronear. Y controlar las entradas. 
@@ -44,8 +44,7 @@ cursor.execute(db_connection.build_query_backup(expected_connection.database, ab
 
 print("BackUp finalizado. Enter para continuar")
 input()
-print(file_manager.get_backup_size(absolute_backup_path))
-input()
+
 google_drive_manager = GoogleDriveImpl()
 # file size > 5000 KB carga reanudable. file size < 5000 KB carga simple
 if file_manager.get_backup_size(absolute_backup_path) > 5000:

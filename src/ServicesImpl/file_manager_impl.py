@@ -1,5 +1,5 @@
-from Services.file_manager import IFileManager
-from Commons.app_config import APPConfig
+from src.Services.file_manager import IFileManager
+from src.Commons.app_config import APPConfig
 import os
 import datetime
 
