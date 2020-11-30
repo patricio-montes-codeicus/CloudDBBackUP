@@ -7,7 +7,7 @@ from src.ServicesImpl.file_manager_impl import FileManagerImpl
 
 expected_connection = ExpectedConnection()
 #TODO: Evaluar mejor forma de recibir al cronear. Y controlar las entradas. 
-print("Tipo de Host 1-SQL 2-Oracle 3-Sybase 4-Postgress 5-MySQL")
+print("Tipo de Host 1-MSSQLServer 2-MySQL 3-PostgreSQL 4-Sybase")
 expected_connection.typehost = input()
 print("Host:")
 expected_connection.host = input()
@@ -29,6 +29,11 @@ logging.info("Data Source pretendido." +
              "Contraseña:" + expected_connection.password + "Base de Datos:" + expected_connection.database)
 
 db_connection = factory_connection.create(expected_connection.get_db_type(int(expected_connection.typehost)))
+
+print("db type connect: " + expected_connection.get_db_type(int(expected_connection.typehost)))
+input()
+print("db connection: " + db_connection.build_connection(expected_connection))
+input()
 
 logging.debug("Estableciendo conexión con la base de datos...")
 conn = pyodbc.connect(db_connection.build_connection(expected_connection), autocommit=True)

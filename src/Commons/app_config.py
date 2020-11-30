@@ -9,7 +9,7 @@ class APPConfig:
     def __init__(self):
         """"""
     #Section: Data Base Drivers
-    driver_sql = config.get('Drivers', 'SQL')
+    driver_sql = config.get('Drivers', 'MSSQL')
     driver_mysql = config.get('Drivers', 'MYSQL')
     driver_ase = config.get('Drivers', 'SYBASE')
 

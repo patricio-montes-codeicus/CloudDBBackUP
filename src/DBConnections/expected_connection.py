@@ -76,9 +76,9 @@ class ExpectedConnection:
 	def get_db_type(self, id_type):
 		try:
 			if id_type == 1:
-				return 'SQL'
+				return 'MSSQL'
 			if id_type == 2:
-				return 'ASE'
+				return 'MYSQL'
 			raise AssertionError("ID Type:" + id_type + " Not Found")
 		except AssertionError as _e:
 			print(_e)

@@ -9,7 +9,7 @@ class FileManagerImpl(IFileManager):
 
         def get_absolute_path_backup(self, db_name, db_type):
                 extension = ""
-                if db_type == 'SQL':
+                if db_type == 'MSSQL':
                         extension = '.bak'
                 if db_type == 'ASE':
                         extension = '.bak'
